@@ -7,40 +7,38 @@ const chartVerticalStacked = 'verticalStacked';
 const chartVerticalLayered = 'verticalLayered';
 const chartHorizontal = 'horizontal';
 
-const chartStyles = [
-	{ chart: chartVertical, mainStyle: '', chartStyle: '', componentStyle: '', height: 250 },
-	{ chart: chartVerticalStacked, mainStyle: '', chartStyle: 'stacked', componentStyle: 'stacked', height: 250 },
-	{ chart: chartVerticalLayered, mainStyle: '', chartStyle: 'layered', componentStyle: 'layered', height: 250 },
-	{ chart: chartHorizontal, mainStyle: 'horizontal', chartStyle: '', componentStyle: '', height: 'auto' },
+const charts = [
+	{ chart: chartVertical, chartStyleCSS: '', chartSerieStyleCSS: '', chartItemStyleCSS: '', chartItem: { height: 250, divider: 1, sortedSerie: [] } },
+	{ chart: chartVerticalStacked, chartStyleCSS: '', chartSerieStyleCSS: 'stacked', chartItemStyleCSS: 'stacked', chartItem: { height: 250, divider: 1, sortedSerie: [] } },
+	{ chart: chartVerticalLayered, chartStyleCSS: '', chartSerieStyleCSS: 'layered', chartItemStyleCSS: 'layered', chartItem: { height: 250, divider: 1, sortedSerie: [] } },
+	{ chart: chartHorizontal, chartStyleCSS: 'horizontal', chartSerieStyleCSS: '', chartItemStyleCSS: '', chartItem: { height: 'auto', divider: 1, sortedSerie: [] } },
 ]
 
-function getChartStyle(type) {
-	
-	if (type && chartStyles.filter(c=>c.chart === type) !== undefined) {
-		return chartStyles.filter(c=>c.chart === type)[0];
+function getChart(type) {
+	if (type && charts.filter(c => c.chart === type) !== undefined) {
+		return charts.filter(c => c.chart === type)[0];
 	}
 	else {
-		return chartStyles[0];
+		return charts[0];
 	}
 }
 
-function getChartComponentParams(type, arrSizes, curArrSize) {
-	let componentParams = {
-		divider: 1,
-		sortedSerie: [],
-	}
-	if (type === chartVerticalStacked) {
-		componentParams.divider = curArrSize.reduce((carry, current) => carry + current, 0);
+function getChartStyle(type, allArr, curArr) {
+	const chart = getChart(type);
+	let chartStyle = Object.assign({}, chart, {chartItem: {...chart.chartItem}});
+
+	if (chartStyle.chart === chartVerticalStacked) {
+		chartStyle.chartItem.divider = curArr.reduce((carry, current) => carry + current, 0);
 	}
 	else {
-		componentParams.divider = arrSizes.reduce((max, serie) => Math.max(max, serie.reduce((serieMax, item) => Math.max(serieMax, item), 0)), 0);
+		chartStyle.chartItem.divider = allArr.reduce((max, serie) => Math.max(max, serie.reduce((serieMax, item) => Math.max(serieMax, item), 0)), 0);
 	}
 
-	if (type === chartVerticalLayered){
-		componentParams.sortedSerie = curArrSize.slice(0).sort(compareNumbers);
+	if (chartStyle.chart === chartVerticalLayered) {
+		chartStyle.chartItem.sortedSerie = curArr.slice(0).sort(compareNumbers);
 	}
 
-	return componentParams;
+	return chartStyle;
 }
 
 function getRandomInt(min, max) {

@@ -1,9 +1,9 @@
 'use strict';
 
-function ChartItem({type, text, style, color}) {
+function ChartItem({text, style, color, itemClass}) {
     return (
         <div
-            className={'Charts--item ' + getChartStyle(type).componentStyle}
+            className={'Charts--item ' + itemClass}
             style={style}
         >
             <b style={{ color: color }}>{text}</b>
