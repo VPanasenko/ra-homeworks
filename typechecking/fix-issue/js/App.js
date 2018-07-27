@@ -42,11 +42,9 @@ class App extends React.Component {
   }
 
   render() {
-    const menuItems = ['Google', 'https://google.com', 'Яндекс', 'https://yandex.ru'];
-
     return (
       <React.Fragment>
-        <Menu handleSearch={'this.onSearch'} title={'Приложение'} version={'1.3.23'} items={[menuItems]}/>
+        <Menu handleSearch={this.onSearch} title={this.props.title} version={this.props.version} items={this.props.menu}/>
         <div className="row">
           <Form {...this.state} handleChange={this.onChange} handleSubmit={this.onSubmit}/>
         </div>

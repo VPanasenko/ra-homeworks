@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
 </head>
+
 <body>
     <div class="container" id="root"></div>
 
@@ -15,15 +18,23 @@
     <script crossorigin src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
     <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
+    <script type="text/babel" src="./js/Utility.js"></script>
+    <script type="text/babel" src="./js/App.js"></script>
     <script type="text/babel" src="./js/Menu.js"></script>
     <script type="text/babel" src="./js/Form.js"></script>
-    <script type="text/babel" src="./js/App.js"></script>
 
     <script type="text/babel">
+        const version = '1.3.23';
+        const title='Приложение';
+        const menuItems = [
+            {name:'Google', url:'https://google.com'},
+            {name:'Яндекс', url:'https://yandex.ru'}
+        ];
         ReactDOM.render(
-            <App/>,
+            <App version={version} title={title} menu={menuItems}/>,
             document.getElementById('root')
         );
     </script>
 </body>
+
 </html>

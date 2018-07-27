@@ -9,3 +9,15 @@ const DateInput = props => {
     </div>
   )
 };
+
+DateInput.propTypes = {
+  label: PropTypes.string,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  required: PropTypes.bool,
+}
+
+DateInput.defaultProps = {
+  value: new Date().toJSON().slice(0,10),
+}
