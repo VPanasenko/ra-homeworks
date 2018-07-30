@@ -14,7 +14,7 @@ const imageStyle = {
 };
 
 const Profile = props => {
-  const birthday = new Date(props.birthday).toLocaleDateString();
+  const birthday = formatDate(props.birthday);
   return (
     <div className="col-md-4 text-center" style={{marginBottom: '10px'}}>
       <div style={profileStyle}>

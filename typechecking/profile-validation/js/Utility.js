@@ -33,11 +33,11 @@ const datePropType = (props, propName, componentName) => {
     let errorText = '';
     if (!(date instanceof Date)) {
         correct = false;
-        errorText = ` Expecting something like '12/31/2018'. `;
+        errorText = ` Expecting something like '2018-12-31'. `;
     } else {
         if (isNaN(new Date(date))) {
             correct = false;
-            errorText = ` Expecting something like '12/31/2018'. `;
+            errorText = ` Expecting something like '2018-12-31'. `;
         } else {
             if (Date.now() < date) {
                 correct = false;
@@ -49,9 +49,9 @@ const datePropType = (props, propName, componentName) => {
     if (!correct) {
         return new Error(`Invalid prop '${propName}' supplied to '${componentName}'. Received value '${props[propName]}'.'${errorText}'Validation failed.`);
     }
-    else{
-        const re = /^((0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d)|((0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d)|((19|20)\d\d[- /.](0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012]))|((19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01]))$/;
-        return checkPropTypeByRegex(props, propName, componentName, re, '12/31/2018 or 31/12/2018 or 2018/31/12 or 2018/12/31; also - and . may be used as separators');
+    else {
+        const re = /^((19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01]))$/;
+        return checkPropTypeByRegex(props, propName, componentName, re, `2018-12-31 and '-' as separator`);
     }
 }
 
@@ -61,6 +61,24 @@ function checkPropTypeByRegex(props, propName, componentName, regexExpression, c
         return new Error(`Invalid prop '${propName}' supplied to '${componentName}'. Received value '${props[propName]}'. Expecting something like '${correctExample}'. Validation failed.`);
     }
     return null;
+}
+
+function formatDate(dateObj) {
+    if ((dateObj === null) || (dateObj === undefined)) {
+        return null;
+    }
+
+    const date = new Date(dateObj);
+    if (!isNaN(date)) {
+        const d = date.getDate();
+        const m = date.getMonth() + 1;
+        const y = date.getFullYear();
+
+        return `${y}-${m < 10 ? '0' + m : m}-${d}`;
+    }
+    else {
+        return null;
+    }
 }
 
 const urlPropTypeChecker = createChainableTypeChecker(urlPropType);
