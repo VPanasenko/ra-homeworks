@@ -1,14 +1,40 @@
+"use strict";
+
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pages: []
+    };
+  }
+
+  setStateInitialValues = () => {
+    this.setState({ pages: Links.getLinks() });
+  };
+
+  componentDidMount() {
+    const { pages } = this.state;
+    if (pages && pages.length === 0) {
+      this.setStateInitialValues();
+    }
+  }
+
   render() {
     return (
       <Router>
         <div>
-          <Menu/>
+          <Menu links={this.state.pages} />
           <div className="page">
-            <Route path="/" exact component={HomePage} />
-            <Route path="/drift" component={DriftPage} />
-            <Route path="/timeattack" component={TimeAttackPage} />
-            <Route path="/forza" component={ForzaPage} />
+            {this.state.pages.map((route, index) => {
+              return (
+                <Route
+                  key={index}
+                  exact={route.exact}
+                  path={route.path}
+                  component={route.component}
+                />
+              );
+            })}
           </div>
         </div>
       </Router>
