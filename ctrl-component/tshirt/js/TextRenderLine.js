@@ -1,11 +1,11 @@
 const TextRenderLine = ({ value, onChange }) => {
-	handleTRL = () => {
-		if (textareaRef) {
+	const handleTRL = () => {
+		if (textareaRef !== null && textareaRef != undefined) {
 			onChange(textareaRef.value);
 		}
 	}
 
-	textareaRef = null;
+	let textareaRef = null;
 
 	return (
 		<div className="type-text">
@@ -16,7 +16,7 @@ const TextRenderLine = ({ value, onChange }) => {
 				rows="2"
 				placeholder="Введите текст для футболки"
 				ref={ta => textareaRef = ta}
-				onChange={handleTRL}
+				onChange={handleTRL.bind(this)}
 				value={value}
 			/>
 		</div>

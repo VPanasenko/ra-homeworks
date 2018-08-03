@@ -1,7 +1,6 @@
 class SearchBox extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props.value);
     }
 
     inputRef = null;
