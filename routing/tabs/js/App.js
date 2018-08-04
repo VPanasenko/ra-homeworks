@@ -12,7 +12,7 @@ class App extends React.Component {
     this.setState({ pages: Links.getLinks() });
   };
 
-  ComponentDidMount() {
+  componentDidMount() {
     const { pages } = this.state;
     if (pages && pages.length === 0) {
       this.setStateInitialValues();
@@ -20,13 +20,14 @@ class App extends React.Component {
   }
 
   render() {
+    const pagesForSwitch = Links.getSortedByPosition().reverse();
     return (
       <Router>
         <div className="tabs">
           <Tabs links={this.state.pages} />
           <div className="tabs__content">
             <Switch>
-              {this.state.pages.map((page, index) => {
+              {pagesForSwitch.map((page, index) => {
                 return (
                   <Route
                     key={index}
