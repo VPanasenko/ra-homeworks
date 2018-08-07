@@ -99,5 +99,6 @@ class ProgressBar extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     this.drawCanvas();
+    this.update = false;
   }
 }
