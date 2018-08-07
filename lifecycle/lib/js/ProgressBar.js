@@ -2,15 +2,24 @@ class ProgressBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      completed: { value: 0, update: false },
-      total: { value: 0, update: false },
+      completed: 0,
+      total: 0,
+      update: false,
       percent: 0
     };
   }
 
-  calculatePercenetCompeleted() {
-    let completedCalc = parseFloat(this.state.completed.value);
-    let totalCalc = parseFloat(this.state.total.value);
+  setProperty(p, v) {
+    if (this.state[p] !== v) {
+      this.setState({ [p]: v });
+      return true;
+    }
+    return false;
+  }
+
+  calculatePercenetCompeleted(dividend, divisor) {
+    let completedCalc = parseFloat(dividend);
+    let totalCalc = parseFloat(divisor);
     if (isNaN(completedCalc) || isNaN(totalCalc) || totalCalc === 0) {
       return 0;
     }
