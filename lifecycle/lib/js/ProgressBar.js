@@ -9,9 +9,11 @@ class ProgressBar extends React.Component {
     };
   }
 
-  setProperty(p, v) {
+  setStateProperty(p, v, callback) {
     if (this.state[p] !== v) {
-      this.setState({ [p]: v });
+      this.setState({
+        [p]: v
+      }, callback);
       return true;
     }
     return false;
@@ -26,17 +28,13 @@ class ProgressBar extends React.Component {
     return parseFloat((completedCalc / totalCalc) * 100).toFixed(0);
   }
 
-  setPercentage(value) {
-    this.setState({ percent: value });
-    console.log(`setPercentage:`);
-    console.log(this.state);
-  }
-
   createCanvas(radius, width, canvasPercent, color) {
     var canvas = document.getElementById("progressCanvas");
     var context = canvas.getContext("2d");
     var centerX = canvas.width / 2;
     var centerY = canvas.height / 2;
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     context.beginPath();
     context.arc(
@@ -54,90 +52,132 @@ class ProgressBar extends React.Component {
     context.lineWidth = width;
     context.strokeStyle = color;
     context.stroke();
+    context.closePath();
   }
 
   drawCanvas() {
-    if (this.state.completed.update) {
-      this.createCanvas(45, 7, this.state.percent, `#96d6f4`);
-      this.setState(
-        this.setState({
-          completed: { update: false }
-        })
-      );
-    }
-
-    if (this.state.total.update) {
-      this.createCanvas(52, 7, 100, `#4ca89a`);
-      this.setState({ total: { update: false } });
-    }
+    this.createCanvas(45, 7, this.state.percent, `#96d6f4`);
+    this.createCanvas(52, 7, 100, `#4ca89a`);
   }
+
+  // componentWillMount() {
+  //   this.setState(
+  //     {
+  //       total: Object.assign({}, this.state.total, {
+  //         value: this.props.total,
+  //         update: true
+  //       }),
+  //       completed: Object.assign({}, this.state.completed, {
+  //         value: this.props.completed,
+  //         update: true
+  //       })
+  //     },
+  //     () => {
+  //       console.log(`componentWillMount2:`);
+  //       console.log(this.state);
+  //       this.setPercentage(this.calculatePercenetCompeleted());
+  //     }
+  //   );
+  //   console.log(`componentWillMount:`);
+  //   console.log(this.state);
+  // }
+
+  // componentDidMount() {
+  //   this.drawCanvas();
+  // }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   let update = false;
+
+  //   if (nextProps.completed > this.state.completed.value) {
+  //     this.setState(
+  //       Object.assign({}, this.state.completed, {
+  //         value: nextProps.completed,
+  //         update: true
+  //       }),
+  //       () => {
+  //         this.setPercentage(this.calculatePercenetCompeleted());
+  //       }
+  //     );
+  //     update = true;
+  //   }
+
+  //   if (nextProps.total > this.state.total.value) {
+  //     this.setState(
+  //       Object.assign({}, this.state.total, {
+  //         value: nextProps.total,
+  //         update: true
+  //       }),
+  //       () => {
+  //         this.setPercentage(this.calculatePercenetCompeleted());
+  //       }
+  //     );
+  //     update = true;
+  //   }
+
+  //   console.log(`shouldComponentUpdate:`);
+  //   console.log(this.state);
+
+  //   return update;
+  // }
+
+  // componentDidUpdate() {
+  //   this.drawCanvas();
+  // }
 
   componentWillMount() {
-    this.setState(
-      {
-        total: Object.assign({}, this.state.total, {
-          value: this.props.total,
-          update: true
-        }),
-        completed: Object.assign({}, this.state.completed, {
-          value: this.props.completed,
-          update: true
-        })
-      },
-      () => {
-        console.log(`componentWillMount2:`);
-        console.log(this.state);
-        this.setPercentage(this.calculatePercenetCompeleted());
-      }
+    console.log("componentWillMount");
+    this.setStateProperty("completed", this.props.completed);
+    this.setStateProperty("total", this.props.total);
+    this.setStateProperty(
+      "percent",
+      this.calculatePercenetCompeleted(this.props.completed, this.props.total)
     );
-    console.log(`componentWillMount:`);
-    console.log(this.state);
-  }
-
-  componentDidMount() {
-    this.drawCanvas();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    let update = false;
-
-    if (nextProps.completed > this.state.completed.value) {
-      this.setState(
-        Object.assign({}, this.state.completed, {
-          value: nextProps.completed,
-          update: true
-        }),
-        () => {
-          this.setPercentage(this.calculatePercenetCompeleted());
-        }
-      );
-      update = true;
-    }
-
-    if (nextProps.total > this.state.total.value) {
-      this.setState(
-        Object.assign({}, this.state.total, {
-          value: nextProps.total,
-          update: true
-        }),
-        () => {
-          this.setPercentage(this.calculatePercenetCompeleted());
-        }
-      );
-      update = true;
-    }
-
-    console.log(`shouldComponentUpdate:`);
-    console.log(this.state);
-
-    return update;
-  }
-
-  componentDidUpdate() {
-    this.drawCanvas();
   }
 
   render() {
+    console.log("render");
     return <canvas id="progressCanvas" className="progress" />;
+  }
+
+  componentDidMount() {
+    console.log("componentDidMount");
+    this.drawCanvas();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("componentWillReceiveProps");
+    let completedUpdated = this.setStateProperty(
+      "completed",
+      nextProps.completed
+    );
+    let totalUpdated = this.setStateProperty("total", nextProps.total);
+    if (completedUpdated || totalUpdated) {
+      this.setStateProperty(
+        "percent",
+        this.calculatePercenetCompeleted(nextProps.completed, nextProps.total),
+        this.drawCanvas()
+      );
+      this.setStateProperty("update", true);
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("shouldComponentUpdate");
+    console.log(this.state);
+    return this.state.update;
+  }
+
+  componentWillUpdate() {
+    console.log("componentWillUpdate");
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("componentDidUpdate");
+    this.setStateProperty("update", false);
+  }
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
   }
 }
