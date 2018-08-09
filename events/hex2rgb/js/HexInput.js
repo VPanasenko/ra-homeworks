@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-// Здесь this === undefined, так как мы в функцию не привязываем другой this 
-// (не передаём другой this и не привязываем через bind); 
-// props.onChange(props.value) не подходит, так как в таком случае 
+// Здесь this === undefined, так как мы в функцию не привязываем другой this
+// (не передаём другой this и не привязываем через bind);
+// props.onChange(props.value) не подходит, так как в таком случае
 // мы передаём назад в state родителя его же значение;
-// Поэтому мы передаём родителю новое значение из target (на котором произошло событие), 
+// Поэтому мы передаём родителю новое значение из target (на котором произошло событие),
 // полученное от event (для чего передаём event в качестве аргумента).
 const HexInput = props => {
   function onChange(event) {
@@ -17,6 +17,7 @@ const HexInput = props => {
       onChange={onChange}
       type="text"
       className="hex-field js-hex-field"
-      placeholder="#000000" />
+      placeholder="#000000"
+    />
   );
 };

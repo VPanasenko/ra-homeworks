@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 class App extends React.Component {
   constructor(props) {
@@ -6,10 +6,10 @@ class App extends React.Component {
     this.state = {
       isUnauthorized: true,
       user: {}
-    }
+    };
   }
   auth(user) {
-    this.setState({isUnauthorized: false, user});
+    this.setState({ isUnauthorized: false, user });
   }
   render() {
     return (

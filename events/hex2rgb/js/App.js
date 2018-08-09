@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +16,9 @@ class App extends React.Component {
       return null;
     }
     result.shift();
-    return result ? `rgb(${result.map(i => parseInt(i, 16)).join(', ')})` : null;
+    return result
+      ? `rgb(${result.map(i => parseInt(i, 16)).join(", ")})`
+      : null;
   }
 
   checkColor(color) {
@@ -24,7 +26,7 @@ class App extends React.Component {
   }
 
   fixColor(color) {
-    return color[0] === '#' ? color.slice(0, 7) : `#${color.slice(0, 6)}`;
+    return color[0] === "#" ? color.slice(0, 7) : `#${color.slice(0, 6)}`;
   }
 
   change(color) {
@@ -39,15 +41,15 @@ class App extends React.Component {
       this.setState({
         isWarning: true,
         color: this.fixColor(color),
-        result: 'Ошибка!'
-      })
+        result: "Ошибка!"
+      });
     }
   }
-  
+
   render() {
     const props = {};
     if (this.state.isWarning) {
-      props.className = 'warning';
+      props.className = "warning";
     } else {
       props.style = {
         backgroundColor: this.state.color
@@ -55,9 +57,7 @@ class App extends React.Component {
     }
     return (
       <figure {...props}>
-        <HexInput
-          value={this.state.color}
-          onChange={this.change.bind(this)} />
+        <HexInput value={this.state.color} onChange={this.change.bind(this)} />
         <div className="message js-message">{this.state.result}</div>
       </figure>
     );
