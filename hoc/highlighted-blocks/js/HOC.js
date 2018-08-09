@@ -1,7 +1,7 @@
 "use strict";
 
 const decorateWithNewOrPopular = Component => {
-  return function(...args) {
+  function DecorateWithNewOrPopular(...args) {
     const views = args[0].views;
     const f = Component(...args);
 
@@ -15,6 +15,11 @@ const decorateWithNewOrPopular = Component => {
       }
     }
   };
+
+  const componentName = Component.displayName || Component.name || "Component";
+  DecorateWithNewOrPopular.displayName = `decorateWithNewOrPopular(${componentName})`;
+
+  return DecorateWithNewOrPopular;
 };
 
 const VideoDecorated = decorateWithNewOrPopular(Video);

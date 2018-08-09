@@ -71,12 +71,17 @@ function sortData(data) {
 }
 
 const prepareData = (Component, operation, property) => {
-  return function(...args) {
+  function PrepareData(...args) {
     const slicedArgs = args.slice(0);
     let props = slicedArgs[0];
     props[property] = operation(props[property]);
     return Component(...slicedArgs);
-  };
+  }
+
+  const componentName = Component.displayName || Component.name || "Component";
+  PrepareData.displayName = `prepareData(${componentName})`;
+
+  return PrepareData;
 };
 
 const SortTableDecorated = prepareData(SortTable, sortData, "list");
