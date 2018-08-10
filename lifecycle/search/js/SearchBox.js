@@ -1,3 +1,5 @@
+'use strict'
+
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,7 @@ class SearchBox extends React.Component {
   setSearchBoxViewRef = (ref) => {
     this.SearchBoxViewRef = ref;
   }
-  
+
   isFixed = () => {
     return this.SearchBoxViewRef.getBoundingClientRect().top <= 0;
   }
@@ -19,11 +21,11 @@ class SearchBox extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener("scroll", this.setPosition);
+     window.addEventListener("scroll", this.setPosition);
   }
 
   render() {
-    return <SearchBoxView fixed={this.state.fixed} setRef={this.setSearchBoxViewRef}/>;
+    return <SearchBoxView fixed={this.state.fixed} setRef={this.setSearchBoxViewRef} />;
   }
 
   componentWillUnmount() {

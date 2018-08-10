@@ -1,14 +1,12 @@
 class ProgressBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      completed: 0,
-      total: 0,
-      percent: 0
-    };
   }
 
   update = false;
+  completed = 0;
+  total = 0;
+  percent = 0;
 
   calculatePercenetCompeleted(dividend, divisor) {
     let completedCalc = parseFloat(dividend);
@@ -25,9 +23,9 @@ class ProgressBar extends React.Component {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
 
-    const isTexted = (text && ((text != null) || (text !='')));
-    
-    if (isTexted){
+    const isTexted = (text && ((text != null) || (text != '')));
+
+    if (isTexted) {
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
@@ -53,19 +51,8 @@ class ProgressBar extends React.Component {
   }
 
   drawCanvas() {
-    this.createCanvas(45, 7, this.state.percent, `#96d6f4`, `${this.state.percent}%`);
+    this.createCanvas(45, 7, this.percent, `#96d6f4`, `${this.percent}%`);
     this.createCanvas(52, 7, 100, `#4ca89a`);
-  }
-
-  componentWillMount() {
-    this.setState({
-      completed: this.props.completed,
-      total: this.props.total,
-      percent: this.calculatePercenetCompeleted(
-        this.props.completed,
-        this.props.total
-      )
-    });
   }
 
   render() {
@@ -73,29 +60,31 @@ class ProgressBar extends React.Component {
   }
 
   componentDidMount() {
+    this.completed = this.props.completed;
+    this.total = this.props.total;
+    this.percent = this.calculatePercenetCompeleted(
+      this.props.completed,
+      this.props.total
+    );
     this.drawCanvas();
   }
 
-  componentWillReceiveProps(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     this.update = (
-      nextProps.total > this.state.total ||
-      nextProps.completed > this.state.completed
+      nextProps.total > this.total ||
+      nextProps.completed > this.completed
     )
     if (this.update) {
-      this.setState({
-        completed: nextProps.completed,
-        total: nextProps.total,
-        percent: this.calculatePercenetCompeleted(
-          nextProps.completed,
-          nextProps.total
-        )
-      });
+      this.completed = nextProps.completed;
+      this.total = nextProps.total;
+      this.percent = this.calculatePercenetCompeleted(
+        nextProps.completed,
+        nextProps.total
+      )
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
     return this.update;
   }
+
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     this.drawCanvas();
