@@ -1,11 +1,13 @@
 const TextRenderLine = ({ value, onChange }) => {
-	const handleTRL = () => {
-		if (textareaRef !== null && textareaRef != undefined) {
-			onChange(textareaRef.value);
-		}
+
+	const filterInputValue = function (nonFilteredValue) {
+		const re = /[^a-zA-Z( )(\r\n|\r|\n))]+/g;
+		return nonFilteredValue.slice(0).replace(re, '').toLowerCase();
 	}
 
-	let textareaRef = null;
+	const handleTRL = (event) => {
+		onChange(filterInputValue(event.currentTarget.value));
+	}
 
 	return (
 		<div className="type-text">
@@ -15,8 +17,7 @@ const TextRenderLine = ({ value, onChange }) => {
 				cols="30"
 				rows="2"
 				placeholder="Введите текст для футболки"
-				ref={ta => textareaRef = ta}
-				onChange={handleTRL.bind(this)}
+				onChange={handleTRL}
 				value={value}
 			/>
 		</div>

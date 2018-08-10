@@ -1,32 +1,40 @@
 'use strict'
 
 class SubscribeForm extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            iserror:'',
+            isError: false,
         }
     }
 
-    handleForm = (event) => {
-        event.preventDefault();
-        if (this.inputRef && this.inputRef.validity.valid){
-            this.setState({iserror: ''});
-        }
-        else{
-            this.setState({iserror: 'is-error'});
-        }
-        return;
+    handleInput = (event) => {
+        this.setState({ isError: !event.currentTarget.validity.valid });
     }
 
-    inputRef = null;
-
-    render() {      
+    render() {
         const sForm = (
             <div className="subscribe__form">
-                <form className={"form form--subscribe " + this.state.iserror} onSubmit={this.handleForm.bind(this)}>
+                <form className={"form form--subscribe " + (this.state.isError ? 'is-error' : '')}>
                     <h4 className="form-title">Подписаться</h4>
-                    <SubscribeInput iRef = {i => this.inputRef = i} onChange={this.handleForm.bind(this)}/>
+                    <div className="form-group">
+                        <label htmlFor="input-email" className="sr-only">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="input-email"
+                            placeholder="Email"
+                            className="form-control"
+                            onChange={this.handleInput}
+                        />
+                        <div className="form-error">
+                            Пожалуйста, проверьте корректность адреса электронной почты
+                        </div>
+                        <button type="submit" className="form-next">
+                            <i className="material-icons">keyboard_arrow_right</i>
+                        </button>
+                    </div>
                 </form>
             </div>
         )

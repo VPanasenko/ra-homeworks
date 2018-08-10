@@ -1,26 +1,16 @@
-class SearchBox extends React.Component {
-    constructor(props) {
-        super(props);
+'use strict'
+
+const SearchBox = (props) => {
+    let handleInput = (event) => {
+        props.filterBooks(event.currentTarget.value);
     }
 
-    inputRef = null;
-
-    filter = () => {
-        if (this.inputRef) {
-            this.props.filterBooks(this.inputRef.value);
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <input type="text"
-                    placeholder="Поиск по названию или автору"
-                    ref={i => this.inputRef = i}
-                    value={this.props.value}
-                    onChange={this.filter}
-                />
-            </div>
-        );
-    }
+    return (
+        <input
+            type="text"
+            value={props.value}
+            placeholder="Поиск по названию или автору"
+            onChange={handleInput}
+        />
+    );
 };
