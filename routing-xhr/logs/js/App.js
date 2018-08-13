@@ -6,14 +6,23 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    fetch('https://baconipsum.com/api/?type=meat-and-filler&paras=50')
-      .then(response => response.json())
-      .then(logs => this.setState({ logs }));
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate');
+    console.log(nextProps);
+    console.log(nextState);
+    return true;
   }
 
+  // componentDidMount() {
+  //   fetch('https://baconipsum.com/api/?type=meat-and-filler&paras=50')
+  //     .then(response => response.json())
+  //     .then(logs => this.setState({ logs }));
+  // }
+
   render() {
+    console.log('render');
     const { logs } = this.state;
+    console.log(logs);
 
     return (
       <Router>

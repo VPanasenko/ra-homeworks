@@ -21,6 +21,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
+  <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
   <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
@@ -31,8 +32,14 @@
   <script type="text/babel" src="./js/Homepage.js"></script>
 
   <script type="text/babel">
+    const {Router, Switch, BrowserRouter} = ReactRouterDOM;
+
     ReactDOM.render(
-      <Homepage/>,
+      <BrowserRouter>
+        <div>
+          <Homepage/>
+        </div>
+      </BrowserRouter>,
       document.getElementById('root')
     );
   </script>
