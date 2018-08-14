@@ -1,13 +1,14 @@
-const Article = props => (
-  <div className="card">
-    <img className="card-img-top" src={`https://picsum.photos/260/180/?image=${random(1, 50)}`} alt={props.title} />
-      <div className="card-body">
-        <h5 className="card-title">{props.title}</h5>
-        <p className="card-text">{props.description}</p>
-        <a href={`/routing-xhr/magazine/article?id=${props.id}`} className="btn btn-primary">Подробнее</a>
-      </div>
-  </div>
-)
-
-const random = (lower = 0, upper = 1) =>
-  lower + Math.floor(Math.random() * (upper - lower + 1))
+const Article = (props) => {
+  const article = getItemById(props.items, props.match.params.id);
+  return (
+    article && 
+    <div>
+      <article className="container m-5">
+        <h1>{article.value.title}</h1>
+        {article.value.additionalDescription && <p>{article.value.additionalDescription}</p>}
+        {article.value.additionalTitle && <h2>{article.value.additionalTitle}</h2>}
+        {getItemsWithIds(article.value.body.split("\n")).map(text => <p key={text.guid}>{text.value}</p>)}
+      </article>
+    </div>
+  );
+};

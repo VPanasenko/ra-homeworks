@@ -22,24 +22,35 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
   <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.8/uuid.min.js"></script> 
   <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-  <script type="text/babel" src="./js/articles.js"></script>
+  <script type="text/babel" src="./js/data.js"></script>
+  <script type="text/babel" src="./js/Utility.js"></script>
 
   <script type="text/babel" src="./js/Nav.js"></script>
   <script type="text/babel" src="./js/Article.js"></script>
+  <script type="text/babel" src="./js/ArticleGrid.js"></script>
+  <script type="text/babel" src="./js/ArticleGridItem.js"></script>
   <script type="text/babel" src="./js/Homepage.js"></script>
+  <script type="text/babel" src="./js/HOC.js"></script>
 
   <script type="text/babel">
-    const {Router, Switch, BrowserRouter} = ReactRouterDOM;
+    const ReactRouter = window.ReactRouterDOM;
+    const Router = ReactRouter.HashRouter;
+    const Route = ReactRouter.Route;
+    const NavLink = ReactRouter.NavLink;
+    const Link = ReactRouter.Link;
+    const Switch = ReactRouter.Switch;
+    const BrowserRouter = ReactRouter.BrowserRouter;
 
     ReactDOM.render(
-      <BrowserRouter>
+      <Router>
         <div>
-          <Homepage/>
+          <HomePageWithNav articles={articles} subscriptions={subscriptions}/>
         </div>
-      </BrowserRouter>,
+      </Router>,
       document.getElementById('root')
     );
   </script>
