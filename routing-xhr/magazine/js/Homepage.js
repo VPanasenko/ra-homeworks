@@ -1,3 +1,5 @@
+"use strict";
+
 const Homepage = props => {
   const subscriptions = getItemsWithIds(props.subscriptions);
   const articles = getItemsWithIds(props.articles);
@@ -19,7 +21,7 @@ const Homepage = props => {
           <Route
             exact
             path="/subscription"
-            render={props => <Article {...props} items={subscriptions} />}
+            render={props => <ArticleWithConfirm {...props} items={subscriptions} />}
           />
         </Switch>
       </div>
