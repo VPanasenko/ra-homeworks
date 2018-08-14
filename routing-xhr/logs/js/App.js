@@ -6,33 +6,27 @@ class App extends React.Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('shouldComponentUpdate');
-    console.log(nextProps);
-    console.log(nextState);
-    return true;
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.logs) {
+      this.setState({ logs: nextProps.logs });
+    }
   }
 
-  // componentDidMount() {
-  //   fetch('https://baconipsum.com/api/?type=meat-and-filler&paras=50')
-  //     .then(response => response.json())
-  //     .then(logs => this.setState({ logs }));
-  // }
-
   render() {
-    console.log('render');
     const { logs } = this.state;
-    console.log(logs);
-
     return (
       <Router>
         <div>
           <ul className="nav">
             <li className="nav-item">
-              <Link className="nav-link" to="/">Текущие данные</Link>
+              <Link className="nav-link" to="/">
+                Текущие данные
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/archive">Архив</Link>
+              <Link className="nav-link" to="/archive">
+                Архив
+              </Link>
             </li>
           </ul>
           <Switch>
@@ -47,4 +41,4 @@ class App extends React.Component {
       </Router>
     );
   }
-};
+}

@@ -27,10 +27,10 @@ const withFetcher = ({ url, collName }) => WrappedComponent =>
     }
 
     render() {
-      console.log("withFetcher");
-      console.log(this.state);
-      const logs = this.state[collName];
-      return <WrappedComponent {...this.props} logs={logs} />;
+      // Честно говоря, тут не до конца понял момент с развёртыванием state (а именно {...this.state}). 
+      // Получается, мы передаём не state, а сами переменные state, которые мы потом должны руками в state соответствующего компонента занести? 
+      // В качестве примера см. componentWillReceiveProps компонента App.
+      return <WrappedComponent {...this.props} {...this.state} />;
     }
   };
 
