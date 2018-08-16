@@ -38,6 +38,9 @@ class Site extends React.Component {
     this.setState(prevState => ({
       ids: [...prevState.ids, newId],
     }));
+    
+    //Нужно ли вообще одну эту строчку выносить в отдельный компонент?
+    alertify.success(`Новый ID:${newId.length} символа`);
   }
 }
 

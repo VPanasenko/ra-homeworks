@@ -18,8 +18,9 @@
 </head>
 
 <body>
+  <div id="root"/>
 
-  <script id="handlebars-app" type="text/x-handlebars-template">
+  <!-- <script id="handlebars-app" type="text/x-handlebars-template">
     <header class="info">
       <h1>{{ title }} | <small> {{ today }}</small></h1>
       
@@ -36,7 +37,7 @@
         </article>
       {{/each}}
     </main>
-  </script>
+  </script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
@@ -51,6 +52,15 @@
 
   <script src="./js/articles.js"></script>
   <script src="./js/application.js"></script>
+
+  <script type="text/babel" src="./js/react/Article.js"></script>
+  <script type="text/babel" src="./js/react/ArticleGrid.js"></script>
+  <script type="text/babel" src="./js/react/Nav.js"></script>
+  <script type="text/babel" src="./js/react/App.js"></script>
+
+  <script type="text/babel">
+    ReactDOM.render(<App context={context} articles={articles}/>, document.getElementById('root'))
+  </script>
 </body>
 
 </html>

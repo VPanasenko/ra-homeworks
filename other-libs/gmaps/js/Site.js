@@ -21,8 +21,8 @@ class Site extends React.Component {
           <h1>Одна большая компания</h1>
           <p>Будем рады видеть вас в одном из наших офисов</p>
         </header>
-        <main className="map">
-          <Map points={this.state.offices} />
+        <main className="map map-container">
+          <Map points={this.state.offices} numberToShowMap={5} />
         </main>
         <button className="button" onClick={this.getOffices}>Обновить местоположение офисов</button>
       </div>
