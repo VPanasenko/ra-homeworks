@@ -1,20 +1,5 @@
 "use strict";
 
-prepareMonthData.monthNames = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sept",
-  "Oct",
-  "Nov",
-  "Dec"
-];
-
 function addIfExists(itemToCheck, arr, comparer) {
   let existedItemIndex = arr.findIndex(el => {
     return comparer(itemToCheck, el);
@@ -35,7 +20,7 @@ function prepareMonthData(data) {
       month: prepareMonthData.monthNames[d.getMonth()],
       amount: item.amount
     };
-    addIfExists(newItem, newData, function(newItem, checkedItem) {
+    addIfExists(newItem, newData, function (newItem, checkedItem) {
       return (
         newItem.year === checkedItem.year && newItem.month === checkedItem.month
       );
@@ -44,6 +29,21 @@ function prepareMonthData(data) {
   return newData;
 }
 
+prepareMonthData.monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec"
+];
+
 function prepareYearData(data) {
   let newData = [];
   data.map((item, index) => {
@@ -51,7 +51,7 @@ function prepareYearData(data) {
       year: new Date(item.date).getFullYear(),
       amount: item.amount
     };
-    addIfExists(newItem, newData, function(newItem, checkedItem) {
+    addIfExists(newItem, newData, function (newItem, checkedItem) {
       return newItem.year === checkedItem.year;
     });
   });
@@ -60,7 +60,7 @@ function prepareYearData(data) {
 
 function sortData(data) {
   let newData = data.slice(0);
-  newData.sort(function(f, s) {
+  newData.sort(function (f, s) {
     let fDate = new Date(f.date);
     let sDate = new Date(s.date);
     if (fDate > sDate) return 1;
