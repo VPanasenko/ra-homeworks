@@ -1,6 +1,6 @@
-// var template = $('#handlebars-app').html();
+var template = $('#handlebars-app').html();
 
-// var templateScript = Handlebars.compile(template);
+var templateScript = Handlebars.compile(template);
 
 var nowDate = new Date();
 
@@ -12,5 +12,5 @@ var context = {
   articles,
 };
 
-// var html = templateScript(context);
-// $(document.body).append(html);
+var html = templateScript(context);
+$(document.body).append(html);

@@ -27,7 +27,7 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
-    if (!this.map){
+    if (!this.map) {
       this.initMap();
     }
     this.removeMarkers();
@@ -35,19 +35,9 @@ class Map extends React.Component {
   }
 
   render() {
-    console.log("render");
     return (
       <div>
-        <div>
-          Точки карты
-          {this.state.points.map(office => (
-            <p key={office.title}>{JSON.stringify(office.center)}</p>
-          ))}
-        </div>
-        {`Карта отображается, если элементов больше ${this.state.numberToShowMap > 0 ? this.state.numberToShowMap : 0}`}
-        {this.state.points.length > this.state.numberToShowMap ? (
-          <div className="map" ref={el => (this.mapRef = el)} />
-        ) : null}
+        <div className="map" ref={el => (this.mapRef = el)} />
       </div>
     );
   }
@@ -88,7 +78,7 @@ class Map extends React.Component {
   removeMarkers() {
     this.setMapOnMarkers(null);
     this.markers = [];
-    if (this.state.points.length <= this.state.numberToShowMap){
+    if (this.state.points.length <= this.state.numberToShowMap) {
       this.map = null;
     }
   }
@@ -106,7 +96,7 @@ class Map extends React.Component {
     if (props.zoom) {
       this.setState({ zoom: parseInt(props.zoom) });
     }
-    if (props.numberToShowMap){
+    if (props.numberToShowMap) {
       this.setState({ numberToShowMap: parseInt(props.numberToShowMap) });
     }
   }

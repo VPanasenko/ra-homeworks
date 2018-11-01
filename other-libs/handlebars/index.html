@@ -18,9 +18,9 @@
 </head>
 
 <body>
-  <div id="root"/>
+  <div id="root" />
 
-  <!-- <script id="handlebars-app" type="text/x-handlebars-template">
+  <script id="handlebars-app" type="text/x-handlebars-template">
     <header class="info">
       <h1>{{ title }} | <small> {{ today }}</small></h1>
       
@@ -29,24 +29,16 @@
       </section>
     </header>
     
-    <main class="container">
-      {{#each articles}}
-        <article class="article">
-          <h2>{{subject}}</h1>
-          <p>{{body}}</p>
-        </article>
-      {{/each}}
+    <main id="container" class="container">
     </main>
-  </script> -->
+  </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
   <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-  <script
-    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
 
@@ -55,11 +47,10 @@
 
   <script type="text/babel" src="./js/react/Article.js"></script>
   <script type="text/babel" src="./js/react/ArticleGrid.js"></script>
-  <script type="text/babel" src="./js/react/Nav.js"></script>
   <script type="text/babel" src="./js/react/App.js"></script>
 
   <script type="text/babel">
-    ReactDOM.render(<App context={context} articles={articles}/>, document.getElementById('root'))
+    ReactDOM.render(<App articles={articles}/>, document.getElementById('container'))
   </script>
 </body>
 

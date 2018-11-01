@@ -2,10 +2,10 @@
 
 const ArticleGrid = props => {
   return (
-    <main className="container">
+    <div>
       {props.items.map((item, index) => {
         return <Article key={index} {...item} />
       })}
-    </main>
+    </div>
   );
 };
