@@ -4,18 +4,22 @@ class SubscribeForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isError: false,
+            errorCSS: ""
         }
     }
 
     handleInput = (event) => {
-        this.setState({ isError: !event.currentTarget.validity.valid });
+        let cssClass = ""
+        if (!event.currentTarget.validity.valid){
+            cssClass = "is-error"
+        }
+        this.setState({ errorCSS: cssClass });
     }
 
     render() {
         const sForm = (
             <div className="subscribe__form">
-                <form className={"form form--subscribe " + (this.state.isError ? 'is-error' : '')}>
+                <form className={`form form--subscribe ${this.state.errorCSS}`}>
                     <h4 className="form-title">Подписаться</h4>
                     <div className="form-group">
                         <label htmlFor="input-email" className="sr-only">
